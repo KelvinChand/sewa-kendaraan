@@ -18,8 +18,10 @@ use App\Http\Controllers\controller_transaksi;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::get('/transaksi', [controller_transaksi::class , 'index']);
 Route::post('/transaksi', [controller_transaksi::class, 'store']);
 Route::get('/transaksi/{id}', [controller_transaksi::class, 'show']);
 Route::put('/transaksi/{id}', [controller_transaksi::class, 'update']);
 Route::delete('/transaksi/{id}', [controller_transaksi::class, 'destroy']);
+

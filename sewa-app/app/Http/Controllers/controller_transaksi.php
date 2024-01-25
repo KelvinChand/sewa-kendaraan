@@ -54,7 +54,7 @@ class controller_transaksi extends Controller
             } catch (Exception $error) {
                 return response()->json([
                     "message" => "Data transaksi gagal disimpan",
-                    "debug"=> $error -> getMessage()
+                    "error"=> $error -> getMessage()
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
@@ -68,13 +68,13 @@ class controller_transaksi extends Controller
         try{
         $transaksi  = transaksi::findOrfail($id);
         return response()->json([
-            "message" => "Berhasil mengambil data transaksi dengan id ${id}",
+            "message" => "Berhasil mengambil data transaksi dengan id $id",
             "data"=> $transaksi
         ], Response::HTTP_OK);
         } catch (Exception $error){
             return response()->json([
                 "message" => "Data transaksi gagal ditemukan",
-                "debug" => $error->getMessage()
+                "error" => $error->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -84,41 +84,85 @@ class controller_transaksi extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validasi = Validator::make(
-            $request->all(),
-            [
-                "nama_customer" => "required|String",
-                "id_kendaraan" => "required|Integer",
-                "tanggal_mulai_sewa" => "required|Date",
-                "tanggal_selesai_sewa" => "required|Date",
-                "harga_sewa" => "required|Double",
-                "tanggal_buat_order" => "required|Date",
-                "tanggal_update_order" => "required|Date"
-            ]
-        );
+        $updateTransaksi = transaksi::findOrFail($id);
 
-        if ($validasi->fails()) {
+        if(!$updateTransaksi)
+        {
             return response()->json([
-                "message" => "Data transaksi belum sesuai",
-                "error" => $validasi->errors()
-            ], Response::HTTP_NOT_ACCEPTABLE);
-        } else {
-            $validated = $validasi->validated();
-            try {
-                $transaksi = transaksi::findOrFail($id);
-                $transaksi ->update($validated);
+                'message' => 'Data transaksi tidak ditemukan !'                
+            ]);
+        }
+        else{
+            $validasi = Validator::make(
+                $request->all(),
+                [
+                    "nama_customer" => "string",
+                    "id_kendaraan" => "integer",
+                    "tanggal_mulai_sewa" => "date",
+                    "tanggal_selesai_sewa" => "date",
+                    "harga_sewa" => "double",
+                    "tanggal_buat_order" => "date",
+                    "tanggal_update_order" => "date"
+                ]
+            );
+            if ($validasi->fails()) {
                 return response()->json([
-                    "message" => "Berhasil mengubah transaksi dengan id {$id}",
-                    "error" => $transaksi
-                ]);
-             } catch(Exception $error){
-               return response()->json([
-                    "message" => "Gagal mengubah data transaksi",
-                    "debug" => $error->getMessage()
-               ]);
-             }
+                    "message" => "Data transaksi belum sesuai",
+                    "error" => $validasi->errors()
+                ], Response::HTTP_NOT_ACCEPTABLE);
+            } else {
+                try {
+                    if($request->filled('nama_customer'))
+                    {
+                        $updateTransaksi->nama_customer = $request->nama_customer;
+                    }
+
+                    if($request->filled('id_kendaraan'))
+                    {
+                        $updateTransaksi->nama_customer = $request->nama_customer;
+                    }
+
+                    if($request->filled('tanggal_mulai_sewa'))
+                    {
+                        $updateTransaksi->id_kendaraan = $request->id_kendaraan;
+                    }
+
+                    if($request->filled('tanggal_selesai_sewa'))
+                    {
+                        $updateTransaksi->tanggal_selesai_sewa = $request->tanggal_selesai_sewa;
+                    }
+
+                    if($request->filled('harga_sewa'))
+                    {
+                        $updateTransaksi->harga_sewa = $request->harga_sewa;
+                    }
+
+                    if($request->filled('tanggal_buat_order'))
+                    {
+                        $updateTransaksi->tanggal_buat_order = $request->tanggal_buat_order;
+                    }
+
+                    if($request->filled('tanggal_update_order'))
+                    {
+                        $updateTransaksi->tanggal_update_order = $request->tanggal_update_order;
+                    }
+
+                    $updateTransaksi->save();
+                   
+                    return response()->json([
+                        "message" => "Berhasil mengubah transaksi dengan id $id",
+                        "error" => $updateTransaksi
+                    ]);
+                 } 
+                 catch(Exception $error){
+                   return response()->json([
+                        "message" => "Gagal mengubah data transaksi",
+                        "error" => $error->getMessage()
+                   ]);
+                 }
+            }
+        }      
     }
-}
 
     /**
      * Remove the specified resource from storage.
@@ -129,13 +173,13 @@ class controller_transaksi extends Controller
             $transaksi = transaksi::findOrfail($id);
             $transaksi->delete();
             return response()->json([
-                "message" => "Berhasil dihapus data transaksi dengan id ${id}",
+                "message" => "Berhasil dihapus data transaksi dengan id $id",
                 "data" => $transaksi
             ], Response::HTTP_OK);
         } catch (Exception $error) {
             return response()->json([
                 "message" => "Data transaksi gagal dihapus",
-                "debug" => $error->getMessage()
+                "error" => $error->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
