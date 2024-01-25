@@ -27,7 +27,7 @@ Route::put('/transaksi/{id}', [controller_transaksi::class, 'update']);
 Route::delete('/transaksi/{id}', [controller_transaksi::class, 'destroy']);
 
 Route::get('/kendaraan', [controller_kendaraan::class , 'index']);
-Route::post('/kedaraan', [controller_kendaraan::class, 'store']);
+Route::post('/kendaraan', [controller_kendaraan::class, 'store']);
 Route::get('/kendaraan/{id}', [controller_kendaraan::class, 'show']);
 Route::put('/kendaraan/{id}', [controller_kendaraan::class, 'update']);
 Route::delete('/kendaraan/{id}', [controller_kendaraan::class, 'destroy']);

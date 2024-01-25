@@ -14,6 +14,13 @@ class kendaraan extends Model
 
     protected $table = 'table_master_kendaraan';
 
+    protected $fillable = [
+        "plat_kendaraan",
+        "nama_kendaraan"
+    ];
+
+    protected $primaryKey = 'id_kendaraan';
+
     public function transaksis() : BelongsTo  {
         return $this->belongsTo(transaksi::class);
     }

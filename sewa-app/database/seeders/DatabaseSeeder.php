@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\kendaraan;
+use App\Models\transaksi;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,13 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $kendaraan = [
             [
                 "id_kendaraan"=> "1",
@@ -53,6 +47,32 @@ class DatabaseSeeder extends Seeder
         if(DB::table('table_master_kendaraan')->count()== 0)
         {
             kendaraan::insert($kendaraan);
+        }
+
+        $transaksi = [
+            [
+                "nama_customer" => "Adi",
+                "id_kendaraan"=> "2",
+                "tanggal_mulai_sewa"=> "2023-12-01",
+                "tanggal_selesai_sewa"=> "2024-03-01",
+                "harga_sewa"=> "300000",
+                "tanggal_buat_order"=> "2023-12-01",
+                "tanggal_update_order"=> "2023-12-20",
+            ],
+            [
+                "nama_customer" => "Caca",
+                "id_kendaraan"=> "3",
+                "tanggal_mulai_sewa"=> "2023-11-20",
+                "tanggal_selesai_sewa"=> "2024-05-20",
+                "harga_sewa"=> "500000",
+                "tanggal_buat_order"=> "2023-11-20",
+                "tanggal_update_order"=> "2024-01-25",
+            ],
+        ];
+
+        if(DB::table('table_master_transaksi')->count()== 0)
+        {
+            transaksi::insert($transaksi);
         }
     }
 }

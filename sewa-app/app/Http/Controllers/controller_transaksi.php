@@ -29,13 +29,13 @@ class controller_transaksi extends Controller
         $validasi = Validator::make(
             $request->all(),
             [
-                "nama_customer" => "required|String",
-                "id_kendaraan" => "required|Integer",
-                "tanggal_mulai_sewa" => "required|Date",
-                "tanggal_selesai_sewa" => "required|Date",
-                "harga_sewa"=> "required|Double",
-                "tanggal_buat_order" => "required|Date",
-                "tanggal_update_order" => "required|Date"
+                "nama_customer" => "required|string",
+                "id_kendaraan" => "required|integer",
+                "tanggal_mulai_sewa" => "required|date",
+                "tanggal_selesai_sewa" => "required|date",
+                "harga_sewa"=> "required|numeric",
+                "tanggal_buat_order" => "required|date",
+                "tanggal_update_order" => "required|date"
             ]
         );
         if($validasi -> fails()){

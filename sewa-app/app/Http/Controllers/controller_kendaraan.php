@@ -41,8 +41,9 @@ class controller_kendaraan extends Controller
             ]);
         }
         else{
+            $validated = $validate->validated();
             try{
-                $insertKendaraan = kendaraan::create($validate);
+                $insertKendaraan = kendaraan::create($validated);
                 return response()->json([
                     'code'=> Response::HTTP_CREATED,
                     'message'=> 'Berhasil menambahkan data kendaraan'
@@ -56,13 +57,14 @@ class controller_kendaraan extends Controller
     }
 
     // Show current data Vehicle by id
-    public function show(string $id)
+    public function show(string $id_kendaraan)
     {
         try{
-            $cariKendaraan = kendaraan::findOrFail($id);
+            $cariKendaraan = kendaraan::findOrFail($id_kendaraan);
+
             return response()->json([
                 'code'=> Response::HTTP_OK,
-                'message'=> "Berhasil mengambil data kendaraan dengan id $id",
+                'message'=> "Berhasil mengambil data kendaraan dengan idkendaraan $id_kendaraan",
                 'data'=> $cariKendaraan
             ]);
         }catch(Exception $e){
