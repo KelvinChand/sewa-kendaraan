@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\controller_kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controller_transaksi;
@@ -25,3 +26,8 @@ Route::get('/transaksi/{id}', [controller_transaksi::class, 'show']);
 Route::put('/transaksi/{id}', [controller_transaksi::class, 'update']);
 Route::delete('/transaksi/{id}', [controller_transaksi::class, 'destroy']);
 
+Route::get('/kendaraan', [controller_kendaraan::class , 'index']);
+Route::post('/kedaraan', [controller_kendaraan::class, 'store']);
+Route::get('/kendaraan/{id}', [controller_kendaraan::class, 'show']);
+Route::put('/kendaraan/{id}', [controller_kendaraan::class, 'update']);
+Route::delete('/kendaraan/{id}', [controller_kendaraan::class, 'destroy']);
