@@ -14,14 +14,14 @@ class transaksi extends Model
 
     protected $primaryKey = 'id_transaksi';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nama_customer',
         'id_kendaraan',
         'tanggal_mulai_sewa',
         'tanggal_selesai_sewa',
         'harga_sewa',
-        'tanggal_buat_order',
-        'tanggal_update_order',
     ];
 
     public function kendaraans (): HasOne {

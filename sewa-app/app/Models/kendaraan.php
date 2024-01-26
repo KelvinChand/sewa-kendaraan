@@ -21,6 +21,8 @@ class kendaraan extends Model
 
     protected $primaryKey = 'id_kendaraan';
 
+    public $timestamps = false;
+    
     public function transaksis() : BelongsTo  {
         return $this->belongsTo(transaksi::class);
     }

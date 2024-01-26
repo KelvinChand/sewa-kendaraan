@@ -17,6 +17,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropColumns('table_master_kendaraan','id_kendaraan');
+        Schema::dropColumns('table_master_transaksi','id_kendaraan');
     }
 };

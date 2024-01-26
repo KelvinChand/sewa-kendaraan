@@ -15,9 +15,8 @@ return new class extends Migration
             $table->date('tanggal_mulai_sewa');
             $table->date('tanggal_selesai_sewa');
             $table->double('harga_sewa');
-            $table->date('tanggal_buat_order');
-            $table->date('tanggal_update_order');
-            $table->timestamps();
+            $table->timestamp('tanggal_buat_order')->default(now());
+            $table->timestamp('tanggal_update_order')->default(now());
         });
     }
 
